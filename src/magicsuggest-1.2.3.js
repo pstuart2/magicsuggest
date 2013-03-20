@@ -373,6 +373,20 @@
              */
             useCommaKey: true,
 
+	          /**
+	           * @cfg {Boolean} useSpaceKey
+	           * <p>If set to true, using space will validate the user's choice preventing tags from having spaces in them.</p>
+	           * Defaults to <code>false</code>.
+	           */
+	          useSpaceKey: false,
+
+	          /**
+	           * @cfg {Boolean} useLowerCase
+	           * <p>If set to true, new tags entered will be set to lowercase..</p>
+	           * Defaults to <code>false</code>.
+	           */
+	          useLowerCase: false,
+
 
             /**
              * @cfg {Boolean} useZebraStyle
@@ -1248,8 +1262,10 @@
                     case 40:case 38: // up, down
                     e.preventDefault();
                     break;
-                    case 13:case 9:case 188:// enter, tab, comma
-                    if(e.keyCode !== 188 || cfg.useCommaKey === true) {
+	                  case 13:case 9:case 188:case 32:// enter, tab, comma, space
+	                  if((e.keyCode === 9 || e.keyCode === 13)
+			                  || (e.keyCode === 188 && cfg.useCommaKey === true)
+			                  || (e.keyCode === 32 && cfg.useSpaceKey === true)) {
                         e.preventDefault();
                         if(cfg.expanded === true){ // if a selection is performed, select it and reset field
                             selected = ms.combobox.find('.ms-res-item-active:first');
