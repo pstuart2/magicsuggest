@@ -1240,7 +1240,7 @@
              * @private
              */
             _onKeyUp: function(e) {
-                var freeInput = ms.getRawValue(),
+                var freeInput = ms.getRawValue().trim(),
                     inputValid = $.trim(ms.input.val()).length > 0 && ms.input.val() !== cfg.emptyText &&
                         (!cfg.maxEntryLength || $.trim(ms.input.val()).length <= cfg.maxEntryLength),
                     selected,
@@ -1249,6 +1249,10 @@
                 $(ms).trigger('keyup', [ms, e]);
 
                 clearTimeout(_timer);
+
+	              if (cfg.useLowerCase === true) {
+		              freeInput = freeInput.toLowerCase();
+	              }
 
                 // collapse if escape, but keep focus.
                 if(e.keyCode === 27 && cfg.expanded) {
